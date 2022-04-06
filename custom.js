@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // visas JS kodas bus vykdomas po to, kai užsikrovė HTML
+  
 
-    const squares = document.querySelectorAll('.grid div') // paimame visus div esančius grid'e
-    const result = document.querySelector('#result') // rezultato laukelis iš mūsų HTML
-    const displayCurrentPlayer = document.querySelector('#current-player') // dabartinio žaidėjo laukelis iš mūsų HTML
-    let currentPlayer = 1 // mūsų default: startuoja pirmasis žaidėjas
+    const squares = document.querySelectorAll('.grid div') 
+    const result = document.querySelector('#result') 
+    const displayCurrentPlayer = document.querySelector('#current-player') 
+    let currentPlayer = 1 
     
-    const winningArrays = [ // visų įmanomų laiminčių laukelių derinių sąrašas
+    const winningArrays = [
       [0, 1, 2, 3],
       [41, 40, 39, 38],
       [7, 8, 9, 10],
@@ -78,20 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
       [13, 20, 27, 34],
     ]
  
-    function restart() { // pasibaigus žaidimui, po 3s perkrauname langą ir startuojame vėl
+    function restart() { 
       setTimeout(function() {
         document.location.href = ""
       }, 3000)
     }
   
-    function checkBoard() { // tikriname ar yra laimėjęs žaidėjas
-      for (let y = 0; y < winningArrays.length; y++) { // pereiname per winningArrays masyvo indeksus
-        const square1 = squares[winningArrays[y][0]] // išsaugome kiekviename indekse esančias reikšmes 
+    function checkBoard() { 
+      for (let y = 0; y < winningArrays.length; y++) { 
+        const square1 = squares[winningArrays[y][0]] 
         const square2 = squares[winningArrays[y][1]]
         const square3 = squares[winningArrays[y][2]]
         const square4 = squares[winningArrays[y][3]]
   
-        // jei visi 4 laukeliai priklauso pirmam žaidėjui, tuomet jis laimėjo
+        
         if (
           square1.classList.contains('player-one') &&
           square2.classList.contains('player-one') &&
@@ -99,10 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
           square4.classList.contains('player-one')
         )
         {
-            result.innerHTML = 'Player One Wins!' // į result laukelį spausdiname, kad pirmas žaidėjas laimėjo
-            restart() // startuojame iš naujo
+            result.innerHTML = 'Player One Wins!' 
+            restart() 
         }
-        // jei visi 4 laukeliai priklauso antram žaidėjui, tuomet jis laimėjo
+       
         if (
           square1.classList.contains('player-two') &&
           square2.classList.contains('player-two') &&
@@ -110,29 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
           square4.classList.contains('player-two')
         )
         {
-            result.innerHTML = 'Player Two Wins!' // į result laukelį spausdiname, kad antras žaidėjas laimėjo
-            restart() // startuojame iš naujo
+            result.innerHTML = 'Player Two Wins!' 
+            restart()
         }
     }
 }
   
-    for (let i = 0; i < squares.length; i++) { // norime priskirti veiksmus, kai žaidėjas paspaudžia ant kurio nors laukelio mūsų grid'e
+    for (let i = 0; i < squares.length; i++) { 
       squares[i].onclick = () => {
-        // jei žemiau esantis laukelis turi klasę taken (pamatas) ir dabartinis laukelis neturi klasės taken
+        
         if (squares[i + 7].classList.contains('taken') && !squares[i].classList.contains('taken')) {
-          if (currentPlayer == 1) { // jei pirmasis žaidėjas
-            squares[i].classList.add('taken') // pridedame klasę taken (užimame tą laukelį)
-            squares[i].classList.add('player-one') // užimtam laukeliui priskiriame klasę player-one
-            currentPlayer = 2 // perleidžiame ėjimą antram žaidėjui
-            displayCurrentPlayer.innerHTML = currentPlayer // rodome pasikeitusį dabartinio žaidėjo statusą
-          } else if (currentPlayer == 2){ // jei antrasis žaidėjas
-            squares[i].classList.add('taken') // pridedame klasę taken (užimame tą laukelį)
-            squares[i].classList.add('player-two') // užimtam laukeliui priskiriame klasę player-one
-            currentPlayer = 1 // perleidžiame ėjimą pirmam žaidėjui
-            displayCurrentPlayer.innerHTML = currentPlayer // rodome pasikeitusį dabartinio žaidėjo statusą       
+          if (currentPlayer == 1) {
+            squares[i].classList.add('taken') 
+            squares[i].classList.add('player-one') 
+            currentPlayer = 2
+            displayCurrentPlayer.innerHTML = currentPlayer 
+          } else if (currentPlayer == 2){ 
+            squares[i].classList.add('taken') 
+            squares[i].classList.add('player-two') 
+            currentPlayer = 1 
+            displayCurrentPlayer.innerHTML = currentPlayer   
           } 
-        } else alert("Can't go here") // neleidžiame užimti laukelio, jei po juo esančiame laukelyje nėra taken klasės
-        checkBoard() // patikriname mūsų lentelę ar yra laimėjęs žaidėjas
+        } else alert("Can't go here") 
+        checkBoard() 
       }
     }
     
